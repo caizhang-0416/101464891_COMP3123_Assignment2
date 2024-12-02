@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3013
 app.use(express.json());
 
 // Connect to MongoDB 
-mongoose.connect('mongodb+srv://caizhang0416:qffxCvqwLRcejOxo@comp3123-assignment1.swm1n.mongodb.net/?retryWrites=true&w=majority&appName=comp3123-assignment1')
+mongoose.connect('mongodb://root:password@mongo:27017/?retryWrites=true&w=majority&appName=comp3123-assignment1')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 

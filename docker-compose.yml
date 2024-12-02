@@ -1,14 +1,39 @@
 version: '3.8'
 services:
+
+  # Frontend
   frontend:
     build: ./frontend
+    networks:
+      - local_net
     ports:
       - '3000:3000'
+    depends_on:
+      - backend
+
+  # Backend
   backend:
     build: ./backend
+    networks:
+      - local_net
     ports:
-      - '5000:5000'
-  mongodb:
-    image: mongo
+      - '3013:3013'
+    depends_on:
+        - mongo
+
+  # MongoDB
+  mongo:
+    image: mongo:8.0
+    restart: always
+    networks:
+      - local_net
+    environment:
+      MONGO_INITDB_DATABASE: bookings, events, approvals
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
     ports:
-      - '27017:27017'
+      - "27017:27017"
+
+networks:
+  local_net:
+    driver: bridge
